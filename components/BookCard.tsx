@@ -12,6 +12,7 @@ interface BookCardProps {
   title: string;
   author: string;
   price: string;
+  discount?: string;
 }
 
 export default function BookCard({
@@ -19,16 +20,26 @@ export default function BookCard({
   title,
   author,
   price,
+  discount,
 }: BookCardProps) {
   return (
     <View style={styles.card}>
 
       {/* Ảnh bìa */}
-      <Image
-        source={image}
-        style={styles.bookImage}
-        resizeMode="cover"
-      />
+      <View style={styles.imageContainer}>
+        <Image
+          source={image}
+          style={styles.bookImage}
+          resizeMode="cover"
+        />
+        {discount && (
+          <View style={styles.badge}>
+            <Text style={styles.badgeText}>
+              {discount}
+            </Text>
+          </View>
+        )}
+      </View>
 
       {/* Thông tin */}
       <View style={styles.info}>
@@ -69,10 +80,31 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5',
   },
 
+  imageContainer: {
+    position: 'relative',
+  },
+
   bookImage: {
     width: 80,
     height: 110,
     borderRadius: 5,
+  },
+
+  badge: {
+    position: 'absolute',
+    top: 6,
+    left: 6,
+    backgroundColor: '#E53935',
+    paddingHorizontal: 6,
+    paddingVertical: 3,
+    borderRadius: 4,
+    zIndex: 1,
+  },
+
+  badgeText: {
+    color: '#FFFFFF',
+    fontSize: 10,
+    fontWeight: 'bold',
   },
 
   info: {

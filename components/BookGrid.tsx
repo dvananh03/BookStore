@@ -1,8 +1,10 @@
+
 import React from 'react';
 import {
   View,
   Text,
   StyleSheet,
+  Image,
 } from 'react-native';
 
 export default function BookGrid() {
@@ -12,21 +14,27 @@ export default function BookGrid() {
       id: 1,
       title: 'Nhà giả kim',
       price: '89.000đ',
+      image: require('../assets/Nhà_giả_kim.jpg'),
+      discount: '-20%',
     },
     {
       id: 2,
       title: 'Đắc nhân tâm',
       price: '95.000đ',
+      image: require('../assets/Đắc_nhân_tâm.jpg'),
+      discount: '-20%',
     },
     {
       id: 3,
       title: 'Tuổi trẻ đáng giá bao nhiêu?',
       price: '120.000đ',
+      image: require('../assets/Tuổi_trẻ.jpg'),
     },
     {
       id: 4,
       title: 'Tôi tài giỏi, bạn cũng thế',
       price: '110.000đ',
+      image: require('../assets/toi-tai-gioi-ban-cung-the-1.webp'),
     },
   ];
 
@@ -38,13 +46,23 @@ export default function BookGrid() {
 
           {/* Ảnh bìa */}
           <View style={styles.imageBox}>
-            <Text style={styles.imageText}>
-              Ảnh aspectRatio
-            </Text>
+            <Image
+              source={book.image}
+              style={styles.image}
+              resizeMode="cover"
+            />
+            {book.discount && (
+              <View style={styles.badge}>
+                <Text style={styles.badgeText}>
+                  {book.discount}
+                </Text>
+              </View>
+            )}
           </View>
 
           {/* Tên + giá */}
           <View style={styles.info}>
+
             <Text style={styles.title}>
               {book.title}
             </Text>
@@ -52,6 +70,7 @@ export default function BookGrid() {
             <Text style={styles.price}>
               {book.price}
             </Text>
+
           </View>
 
         </View>
@@ -63,15 +82,13 @@ export default function BookGrid() {
 
 const styles = StyleSheet.create({
 
-  // GRID
+  // GRID 2 CỘT
   container: {
     flexDirection: 'row',
-
     flexWrap: 'wrap',
-
     justifyContent: 'space-between',
-
     rowGap: 12,
+    padding: 10,
   },
 
   // Mỗi item chiếm 48%
@@ -87,10 +104,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5',
   },
 
-  // Ảnh
+  // Khung ảnh
   imageBox: {
     width: '100%',
-
     aspectRatio: 3 / 4,
 
     justifyContent: 'center',
@@ -100,11 +116,33 @@ const styles = StyleSheet.create({
 
     borderWidth: 1,
     borderColor: '#6C8CFF',
+
+    overflow: 'hidden',
+    position: 'relative',
   },
 
-  imageText: {
+  // Badge giảm giá
+  badge: {
+    position: 'absolute',
+    top: 6,
+    left: 6,
+    backgroundColor: '#E53935',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 4,
+    zIndex: 1,
+  },
+
+  badgeText: {
+    color: '#FFFFFF',
+    fontSize: 12,
     fontWeight: 'bold',
-    color: '#333333',
+  },
+
+  // Ảnh
+  image: {
+    width: '100%',
+    height: '100%',
   },
 
   // Tên + giá

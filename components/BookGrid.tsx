@@ -1,49 +1,27 @@
-
 import React from 'react';
 import {
   View,
   Text,
   StyleSheet,
   Image,
+  TouchableOpacity,
 } from 'react-native';
+import { Book, BOOKS_DATA } from '../data/booksData';
 
-export default function BookGrid() {
+interface BookGridProps {
+  onSelectBook?: (book: Book) => void;
+}
 
-  const books = [
-    {
-      id: 1,
-      title: 'Nhà giả kim',
-      price: '89.000đ',
-      image: require('../assets/Nhà_giả_kim.jpg'),
-      discount: '-20%',
-    },
-    {
-      id: 2,
-      title: 'Đắc nhân tâm',
-      price: '95.000đ',
-      image: require('../assets/Đắc_nhân_tâm.jpg'),
-      discount: '-20%',
-    },
-    {
-      id: 3,
-      title: 'Tuổi trẻ đáng giá bao nhiêu?',
-      price: '120.000đ',
-      image: require('../assets/Tuổi_trẻ.jpg'),
-    },
-    {
-      id: 4,
-      title: 'Tôi tài giỏi, bạn cũng thế',
-      price: '110.000đ',
-      image: require('../assets/toi-tai-gioi-ban-cung-the-1.webp'),
-    },
-  ];
-
+export default function BookGrid({ onSelectBook }: BookGridProps) {
   return (
     <View style={styles.container}>
-
-      {books.map((book) => (
-        <View key={book.id} style={styles.item}>
-
+      {BOOKS_DATA.map((book) => (
+        <TouchableOpacity
+          key={book.id}
+          style={styles.item}
+          activeOpacity={0.8}
+          onPress={() => onSelectBook?.(book)}
+        >
           {/* Ảnh bìa */}
           <View style={styles.imageBox}>
             <Image
@@ -53,35 +31,25 @@ export default function BookGrid() {
             />
             {book.discount && (
               <View style={styles.badge}>
-                <Text style={styles.badgeText}>
-                  {book.discount}
-                </Text>
+                <Text style={styles.badgeText}>{book.discount}</Text>
               </View>
             )}
           </View>
 
           {/* Tên + giá */}
           <View style={styles.info}>
-
-            <Text style={styles.title}>
+            <Text style={styles.title} numberOfLines={2}>
               {book.title}
             </Text>
-
-            <Text style={styles.price}>
-              {book.price}
-            </Text>
-
+            <Text style={styles.price}>{book.price}</Text>
           </View>
-
-        </View>
+        </TouchableOpacity>
       ))}
-
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-
   // GRID 2 CỘT
   container: {
     flexDirection: 'row',
@@ -94,31 +62,26 @@ const styles = StyleSheet.create({
   // Mỗi item chiếm 48%
   item: {
     width: '48%',
-
     padding: 10,
-
     borderWidth: 2,
     borderColor: '#6C8CFF',
     borderStyle: 'dashed',
-
     backgroundColor: '#F5F5F5',
+    borderRadius: 8,
   },
 
   // Khung ảnh
   imageBox: {
     width: '100%',
     aspectRatio: 3 / 4,
-
     justifyContent: 'center',
     alignItems: 'center',
-
     backgroundColor: '#DDDDDD',
-
     borderWidth: 1,
     borderColor: '#6C8CFF',
-
     overflow: 'hidden',
     position: 'relative',
+    borderRadius: 4,
   },
 
   // Badge giảm giá
@@ -152,28 +115,25 @@ const styles = StyleSheet.create({
 
   title: {
     padding: 6,
-
     textAlign: 'center',
-
     borderWidth: 1,
     borderColor: '#6C8CFF',
-
     fontWeight: 'bold',
+    fontSize: 13,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 4,
   },
 
   price: {
     marginTop: 6,
-
     padding: 6,
-
     textAlign: 'center',
-
     borderWidth: 1,
     borderColor: '#6C8CFF',
-
     color: '#303F9F',
-
     fontWeight: 'bold',
+    fontSize: 14,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 4,
   },
-
 });

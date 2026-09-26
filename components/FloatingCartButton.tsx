@@ -20,7 +20,6 @@ export default function FloatingCartButton({
       <Ionicons name="cart" size={22} color="#FFFFFF" />
       <Text style={styles.cartText}>Giỏ hàng</Text>
 
-      {/* Badge số lượng sản phẩm ở góc trên-phải nút tròn */}
       {count > 0 && (
         <View style={styles.badge}>
           <Text style={styles.badgeText}>{count}</Text>
@@ -58,7 +57,6 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
 
-  // Badge đặt ở góc trên-phải nút tròn (containing block lồng nhau)
   badge: {
     position: 'absolute',
     top: -2,

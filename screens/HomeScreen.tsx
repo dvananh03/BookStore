@@ -29,8 +29,6 @@ export default function HomeScreen({
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#3ac6a8" />
-
-      {/* 1. HEADER CỐ ĐỊNH (Không nằm trong ScrollView) */}
       <Header />
 
       {/* 2. SCROLLVIEW CHỨA NỘI DUNG CUỘN ĐƯỢC */}
@@ -49,7 +47,10 @@ export default function HomeScreen({
       </ScrollView>
 
       {/* 3. FLOATING CART BUTTON (Absolute, nằm ngoài ScrollView cùng cấp) */}
-      <FloatingCartButton count={cartCount} onPress={onOpenCart} />
+      <FloatingCartButton
+  count={cartCount}
+  onPress={onOpenCart}
+/>
     </SafeAreaView>
   );
 }
